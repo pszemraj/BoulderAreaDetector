@@ -7,7 +7,8 @@ import os
 import time
 from io import BytesIO
 
-import PIL.Image
+# Importing Image class from PIL module
+from PIL import Image
 import matplotlib.image as mpimg
 import numpy as np
 import requests
@@ -18,7 +19,6 @@ import torch
 from fastai.vision.all import *
 from natsort import natsorted
 from os.path import join
-from skimage.transform import resize
 import pathlib
 import platform
 
@@ -30,9 +30,7 @@ if platform.system() == "Windows":
 
 def predict(img, img_path):
     # Display the test image
-    skimage.io.imshow(img)
-
-
+    img.show()
     # Load model and make prediction
     try:
         path_to_model = r"Res101_cls_set4.pkl"
@@ -43,8 +41,9 @@ def predict(img, img_path):
         model_response = requests.get(model_backup)
         model = load_learner(BytesIO(model_response.content), cpu=True)
 
-
-    pred_class, pred_items, pred_prob = model.predict(img_path)
+    fancy_class = PILImage(img)
+    model.precompute = False
+    pred_class, pred_items, pred_prob = model.predict(fancy_class)
     prob_np = pred_prob.numpy()
     # Display the prediction
     if str(pred_class) == 'climb_area':
@@ -56,8 +55,8 @@ test_image = "test_img_boulder.png"
 # Read the image
 working_dir = os.path.join(os.getcwd(), "test_images")
 file_path = os.path.join(working_dir, test_image)
-img = skimage.io.imread(file_path)
-img = resize(img, (256, 256))
-
+img = load_image(file_path)
+img = img.resize((256, 256))
+img = img.convert("RGB")
 # Predict and display the image
 predict(img, file_path)

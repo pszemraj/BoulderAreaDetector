@@ -44,7 +44,8 @@ def load_image(image_file):
 	img = Image.open(image_file)
 	return img
 
-def predict(img, img_path):
+def predict(img, img_flex):
+    # NOTE: it's called img_flex because it can either be an object itself, or a path to one
     # Display the test image
     st.image(img, caption="Chosen Image to Analyze", use_column_width=True)
 
@@ -62,7 +63,7 @@ def predict(img, img_path):
         model = load_learner(BytesIO(model_response.content), cpu=True)
 
 
-    pred_class, pred_items, pred_prob = model.predict(img_path)
+    pred_class, pred_items, pred_prob = model.predict(img_flex)
     prob_np = pred_prob.numpy()
 
     # Display the prediction
@@ -97,17 +98,11 @@ else:
     image_file = st.file_uploader("Upload Image", type=['png', 'jpeg', 'jpg'])
 
     if image_file is not None:
-        base_img = np.array(load_image(image_file))
         file_details = {"Filename": image_file.name,
                         "FileType": image_file.type,
                         "FileSize": image_file.size}
-        st.write(type(base_img))
-        st.write(base_img.shape)
-        img = resize(base_img, (256, 256))
-        st.write("resized_img")
-        save_path = os.path.join(os.getcwd(), "custom_picture.png")
-        skimage.io.imsave(save_path)
-        st.write("saved_img")
-
+        base_img = load_image(image_file)
+        img = img.resize((256, 256))
+        img = img.convert("RGB")
         # Predict and display the image
-        predict(img, save_path)
+        predict(img, img)
