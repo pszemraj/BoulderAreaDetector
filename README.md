@@ -8,7 +8,9 @@ An example of model predictions on a holdout set:
 
 ## Model Stats - ResNet101 CNN Classifier
 
-I may do a more detailed writeup of how the model was created, but in short, it uses a resnet101. A decent writeup on how to create, train, and save a fastai computer vision model is in [this Medium article](https://medium.com/analytics-vidhya/understanding-fastai-v2-training-with-a-computer-vision-example-part-1-the-resnet-model-dd9270450bb8). BoulderAreaDetector uses a decently sized labeled dataset (approx 3000 satellite images, each 256x256 in two classes), but has not had any significant level of hyperparameter optimization yet beyond fast.ai basics.
+In short, fastai w/ resnet101 trained on labeled dataset with two classes.
+
+A decent writeup on how to create, train, and save a fastai computer vision model is in [this Medium article](https://medium.com/analytics-vidhya/understanding-fastai-v2-training-with-a-computer-vision-example-part-1-the-resnet-model-dd9270450bb8). BoulderAreaDetector uses a decently sized labeled dataset (approx 3000 satellite images, each 256x256 in two classes), but has not had any significant level of hyperparameter optimization yet beyond fast.ai basics.
 
 ### Model itself
 
