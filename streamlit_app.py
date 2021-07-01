@@ -31,9 +31,9 @@ st.markdown("by Peter Szemraj | [GitHub](https://github.com/pszemraj)")
 with st.beta_container():
     st.header("Basic Instructions")
     st.markdown("*This app assesses a satellite/arial image of land and decides whether it is suitable for "
-                "outdoor rock climbing.")
-    st.markdown("choose an option to use the model to assess an image")
-    st.markdown("if you are experiencing a shortage of satellite images to test, do not fear. This folder ["
+                "outdoor rock climbing.*")
+    st.markdown("- Choose an option to use the model to assess an image")
+    st.markdown("- If you are experiencing a shortage of satellite images to test, do not fear. This folder ["
                 "here](https://www.dropbox.com/sh/0hz4lh9h8v30a8d/AACFwlIAvdnDdc6RvrcXVpnsa?dl=0) contains "
                 "images not used in the creation of the model")
 st.markdown("---")
