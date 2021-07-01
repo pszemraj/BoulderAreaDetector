@@ -2,7 +2,7 @@ import os
 import time
 from io import BytesIO
 
-import PIL.Image
+from PIL import Image
 import matplotlib.image as mpimg
 import numpy as np
 import requests
@@ -106,7 +106,8 @@ else:
                         "FileType": image_file.type,
                         "FileSize": image_file.size}
         base_img = load_image(image_file)
-        img = img.resize((256, 256))
+        img = base_img.resize((256, 256))
         img = img.convert("RGB")
         # Predict and display the image
+        st.write("made it to the predictor")
         predict(img, img)
