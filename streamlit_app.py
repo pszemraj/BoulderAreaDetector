@@ -26,7 +26,11 @@ if platform.system() == "Windows":
     pathlib.PosixPath = pathlib.WindowsPath
 
 # App title
-st.title("NatureGeoDiscoverer MVP: Detect Bouldering Areas")
+supplemental_dir = os.path.join(os.getcwd(), "info")
+fp_header = os.path.join(working_dir, "climb_area_examples.png")
+st.image(skimage.io.imread(fp_header), caption="NatureGeoDiscoverer MVP: Detect Bouldering Areas")
+
+# st.title("NatureGeoDiscoverer MVP: Detect Bouldering Areas")
 st.markdown("by Peter Szemraj | [GitHub](https://github.com/pszemraj)")
 with st.beta_container():
     st.header("Basic Instructions")
@@ -67,15 +71,16 @@ def predict(img, img_flex):
         model.precompute = False
         pred_class, pred_items, pred_prob = model.predict(fancy_class)
     else:
+        # loads from a file so it's fine
         pred_class, pred_items, pred_prob = model.predict(img_flex)
     prob_np = pred_prob.numpy()
 
     # Display the prediction
     if str(pred_class) == 'climb_area':
         st.balloons()
-        st.markdown("##Submitted img is **most likely a climbing area**")
+        st.subheader("Area is most likely a solid climbing area!")
     else:
-        st.markdown("##Area in submitted image *most likely* does not make a great climbing area")
+        st.subheader("Area is probably not too great to climb at.")
 
 
 # Image source selection
@@ -100,14 +105,13 @@ if option == option1_text:
         predict(img, file_path)
 else:
     image_file = st.file_uploader("Upload Image", type=['png', 'jpeg', 'jpg'])
-
-    if image_file is not None:
-        file_details = {"Filename": image_file.name,
-                        "FileType": image_file.type,
-                        "FileSize": image_file.size}
-        base_img = load_image(image_file)
-        img = base_img.resize((256, 256))
-        img = img.convert("RGB")
-        # Predict and display the image
-        st.write("made it to the predictor")
-        predict(img, img)
+    if st.button('Analyze!'):
+        if image_file is not None:
+            file_details = {"Filename": image_file.name,
+                            "FileType": image_file.type,
+                            "FileSize": image_file.size}
+            base_img = load_image(image_file)
+            img = base_img.resize((256, 256))
+            img = img.convert("RGB")
+            # Predict and display the image
+            predict(img, img)
