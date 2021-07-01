@@ -38,6 +38,12 @@ with st.beta_container():
                 "images not used in the creation of the model")
 st.markdown("---")
 
+# Fxn
+@st.cache
+def load_image(image_file):
+	img = Image.open(image_file)
+	return img
+
 def predict(img, img_path):
     # Display the test image
     st.image(img, caption="Chosen Image to Analyze", use_column_width=True)
@@ -88,9 +94,13 @@ if option == option1_text:
         # Predict and display the image
         predict(img, file_path)
 else:
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-        base_img = skimage.io.imread(uploaded_file)
+    image_file = st.file_uploader("Upload Image", type=['png', 'jpeg', 'jpg'])
+
+    if image_file is not None:
+        base_img = load_image(image_file)
+        file_details = {"Filename": image_file.name,
+                        "FileType": image_file.type,
+                        "FileSize": image_file.size}
         img = resize(base_img, (256, 256))
         save_path = os.path.join(os.getcwd(), "custom_picture.png")
         skimage.io.imsave(save_path)
