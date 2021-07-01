@@ -102,6 +102,7 @@ else:
                         "FileType": image_file.type,
                         "FileSize": image_file.size}
         img = resize(base_img, (256, 256))
+        st.image(img, width=250, height=250)
         save_path = os.path.join(os.getcwd(), "custom_picture.png")
         skimage.io.imsave(save_path)
         # Predict and display the image
