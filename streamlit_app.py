@@ -27,13 +27,16 @@ if platform.system() == "Windows":
 
 # App title
 st.title("NatureGeoDiscoverer MVP: Detect Bouldering Areas")
+st.markdown("by Peter Szemraj | [GitHub](https://github.com/pszemraj)")
 with st.beta_container():
     st.header("Basic Instructions")
+    st.markdown("*This app assesses a satellite/arial image of land and decides whether it is suitable for "
+                "outdoor rock climbing.")
     st.markdown("choose an option to use the model to assess an image")
-    st.markdown("if you are experiencing a shortage of satellite images to test, do not fear.")
-    st.markdown("the folder [here](https://www.dropbox.com/sh/0hz4lh9h8v30a8d/AACFwlIAvdnDdc6RvrcXVpnsa?dl=0) contains images not used in the creation of the model")
-
-print(os.getcwd())
+    st.markdown("if you are experiencing a shortage of satellite images to test, do not fear. This folder ["
+                "here](https://www.dropbox.com/sh/0hz4lh9h8v30a8d/AACFwlIAvdnDdc6RvrcXVpnsa?dl=0) contains "
+                "images not used in the creation of the model")
+st.markdown("---")
 
 def predict(img, img_path):
     # Display the test image
@@ -59,15 +62,15 @@ def predict(img, img_path):
     # Display the prediction
     if str(pred_class) == 'climb_area':
         st.balloons()
-        st.markdown("Submitted img is **most likely a climbing area**")
+        st.markdown("##Submitted img is **most likely a climbing area**")
     else:
-        st.markdown("Area in submitted image *most likely* does not make a great climbing area")
+        st.markdown("##Area in submitted image *most likely* does not make a great climbing area")
 
 
 # Image source selection
 option1_text = 'Use an example image'
 option2_text = 'Upload a custom image for analysis'
-option = st.radio('', [option1_text, option2_text])
+option = st.radio('Choose an option to continue:', [option1_text, option2_text])
 
 
 if option == option1_text:
