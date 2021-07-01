@@ -54,7 +54,7 @@ def predict(img, img_path):
         time.sleep(5)
         # Load model and make prediction
     try:
-        path_to_model = r"resnet101classifier02_naturegeodiscoverer.pkl"
+        path_to_model = r"Res101_cls_set4.pkl"
         model = load_learner(path_to_model, cpu=True)
     except:
         print("unable to load locally. downloading model file")
