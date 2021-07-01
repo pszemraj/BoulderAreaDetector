@@ -18,16 +18,6 @@ from skimage.transform import resize
 import pathlib
 import platform
 
-def display_img(picture):
-    fig = plt.figure(figsize=(5, 5), tight_layout=True, clear=True)
-    # ax = fig.add_axes([0.0, 0.0, 1.0, 1.0])
-    plt.axis('off')
-    plt.ioff()
-    ax = plt.axes()
-    plt.imshow(picture, norm=matplotlib.colors.Normalize(),
-               interpolation="lanczos", alpha=1, zorder=1)
-    plt.show()
-
 
 if platform.system() == "Windows":
     # model originally saved on Linux, strange things happen
@@ -68,9 +58,10 @@ def predict(img, img_path):
 
     # Display the prediction
     if str(pred_class) == 'climb_area':
-        st.success("Submitted img is a climbing area, confidence level is {}".format(round(100*prob_np[0]),2))
+        st.balloons()
+        st.markdown("Submitted img is **most likely a climbing area**")
     else:
-        st.success("Area in submitted image not great for climbing. confidence level is {}".format(round(100*prob_np[0]),2))
+        st.markdown("Area in submitted image *most likely* does not make a great climbing area")
 
 
 # Image source selection
