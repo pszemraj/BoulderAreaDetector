@@ -1,5 +1,5 @@
 """
-tests out how things work on the local machine
+Run the model on local machine. Useful for debugging
 
 """
 
@@ -24,13 +24,13 @@ import platform
 
 if platform.system() == "Windows":
     # model originally saved on Linux, strange things happen
-    print("on winmdows - adjusting PosixPath")
+    print("on windows - adjusting PosixPath")
     temp = pathlib.PosixPath
     pathlib.PosixPath = pathlib.WindowsPath
 
-def predict(img, img_path):
+def predict(img, img_flex, print_model=True):
     # Display the test image
-    img.show()
+    img.show(title="Image to be predicted")
     # Load model and make prediction
     try:
         path_to_model = r"Res101_cls_set4.pkl"
@@ -41,15 +41,25 @@ def predict(img, img_path):
         model_response = requests.get(model_backup)
         model = load_learner(BytesIO(model_response.content), cpu=True)
 
-    fancy_class = PILImage(img)
-    model.precompute = False
-    pred_class, pred_items, pred_prob = model.predict(fancy_class)
+    if not isinstance(img_flex, str):
+        # convert image to fast AI PIL object
+        fancy_class = PILImage(img_flex)
+        model.precompute = False
+        pred_class, pred_items, pred_prob = model.predict(fancy_class)
+    else:
+        # standard case
+        # loads from a file so it's fine
+        pred_class, pred_items, pred_prob = model.predict(img_flex)
+    if print_model: print(model.model)
+
     prob_np = pred_prob.numpy()
     # Display the prediction
     if str(pred_class) == 'climb_area':
         print("Submitted img is a climbing area, confidence level is {}".format(round(100*prob_np[0]),2))
     else:
         print("Area in submitted image not great for climbing. confidence level is {}".format(round(100*prob_np[0]),2))
+
+# main code. can update the below to load images from a file in a for loop to batch classify
 
 test_image = "test_img_boulder.png"
 # Read the image
@@ -59,4 +69,4 @@ img = load_image(file_path)
 img = img.resize((256, 256))
 img = img.convert("RGB")
 # Predict and display the image
-predict(img, file_path)
+predict(img, file_path, print_model=False)

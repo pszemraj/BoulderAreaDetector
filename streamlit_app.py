@@ -30,7 +30,7 @@ supplemental_dir = os.path.join(os.getcwd(), "info")
 fp_header = os.path.join(supplemental_dir, "climb_area_examples.png")
 
 st.title("NatureGeoDiscoverer MVP: Detect Bouldering Areas")
-st.markdown("by Peter Szemraj | [GitHub](https://github.com/pszemraj)")
+st.markdown("by [Peter Szemraj](https://peterszemraj.ch/) | [GitHub](https://github.com/pszemraj)")
 with st.beta_container():
     st.header("Basic Instructions")
     st.markdown("*This app assesses a satellite/arial image of land and decides whether it is suitable for "
@@ -46,9 +46,10 @@ st.markdown("---")
 # Fxn
 @st.cache
 def load_image(image_file):
+    #loads uploaded images
 	img = Image.open(image_file)
 	return img
-
+# prediction function
 def predict(img, img_flex):
     # NOTE: it's called img_flex because it can either be an object itself, or a path to one
     # Display the test image
@@ -89,7 +90,7 @@ option1_text = 'Use an example image'
 option2_text = 'Upload a custom image for analysis'
 option = st.radio('Choose an option to continue:', [option1_text, option2_text])
 
-
+# provide different options based on selection
 if option == option1_text:
     # Test image selection
     working_dir = os.path.join(os.getcwd(), "test_images")
@@ -116,3 +117,9 @@ else:
             img = img.convert("RGB")
             # Predict and display the image
             predict(img, img)
+st.markdown("---")
+st.subheader("How it Works:")
+st.markdown("**BoulderAreaDetector** uses Convolutional Neural Network (CNN) trained on a labeled dataset ("
+            "approx 3000 satellite images, each 256x256 in two classes) to classify images. More "
+            "specifically, the model is [resnet101]("
+            "https://pytorch.org/vision/stable/_modules/torchvision/models/resnet.html#resnet101)")
