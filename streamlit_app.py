@@ -28,9 +28,8 @@ if platform.system() == "Windows":
 # App title
 supplemental_dir = os.path.join(os.getcwd(), "info")
 fp_header = os.path.join(supplemental_dir, "climb_area_examples.png")
-st.image(skimage.io.imread(fp_header), caption="NatureGeoDiscoverer MVP: Detect Bouldering Areas")
 
-# st.title("NatureGeoDiscoverer MVP: Detect Bouldering Areas")
+st.title("NatureGeoDiscoverer MVP: Detect Bouldering Areas")
 st.markdown("by Peter Szemraj | [GitHub](https://github.com/pszemraj)")
 with st.beta_container():
     st.header("Basic Instructions")
@@ -40,6 +39,8 @@ with st.beta_container():
     st.markdown("- If you are experiencing a shortage of satellite images to test, do not fear. This folder ["
                 "here](https://www.dropbox.com/sh/0hz4lh9h8v30a8d/AACFwlIAvdnDdc6RvrcXVpnsa?dl=0) contains "
                 "images not used in the creation of the model")
+st.markdown("---")
+st.image(skimage.io.imread(fp_header), caption="Examples of Model Results")
 st.markdown("---")
 
 # Fxn
