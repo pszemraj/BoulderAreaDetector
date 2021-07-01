@@ -27,7 +27,7 @@ if platform.system() == "Windows":
 
 # App title
 supplemental_dir = os.path.join(os.getcwd(), "info")
-fp_header = os.path.join(working_dir, "climb_area_examples.png")
+fp_header = os.path.join(supplemental_dir, "climb_area_examples.png")
 st.image(skimage.io.imread(fp_header), caption="NatureGeoDiscoverer MVP: Detect Bouldering Areas")
 
 # st.title("NatureGeoDiscoverer MVP: Detect Bouldering Areas")
