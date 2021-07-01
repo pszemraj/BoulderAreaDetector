@@ -17,7 +17,7 @@ from os.path import join
 from skimage.transform import resize
 import pathlib
 import platform
-
+import numpy as np
 
 if platform.system() == "Windows":
     # model originally saved on Linux, strange things happen
@@ -97,7 +97,7 @@ else:
     image_file = st.file_uploader("Upload Image", type=['png', 'jpeg', 'jpg'])
 
     if image_file is not None:
-        base_img = load_image(image_file)
+        base_img = np.array(load_image(image_file))
         file_details = {"Filename": image_file.name,
                         "FileType": image_file.type,
                         "FileSize": image_file.size}
