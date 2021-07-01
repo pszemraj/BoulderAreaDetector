@@ -62,8 +62,12 @@ def predict(img, img_flex):
         model_response = requests.get(model_backup)
         model = load_learner(BytesIO(model_response.content), cpu=True)
 
-
-    pred_class, pred_items, pred_prob = model.predict(img_flex)
+    if not isinstance(img_flex, str):
+        fancy_class = PILImage(img_flex)
+        model.precompute = False
+        pred_class, pred_items, pred_prob = model.predict(fancy_class)
+    else:
+        pred_class, pred_items, pred_prob = model.predict(img_flex)
     prob_np = pred_prob.numpy()
 
     # Display the prediction
