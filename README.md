@@ -3,6 +3,7 @@
 Deploys a deep learning CNN classifying satellite imagery to [streamlit](https://share.streamlit.io/pszemraj/boulderareadetector) for user testing. The app MVP demo of GeoNatureDiscoverer (more info to be released.. TBD). The original idea for GeoNatureDiscoverer originated in the June 2021 CASSINI Hackathon, that repo is [here](https://github.com/JonathanLehner/cassini_2021_nature_discoverer).
 
 An example of model predictions on a holdout set:
+
 ![Predicted Class-climb_area Examples](https://user-images.githubusercontent.com/74869040/124186053-0b1ba500-dabc-11eb-892d-5330deea51a5.png)
 
 ## Model Stats - ResNet101 CNN Classifier
