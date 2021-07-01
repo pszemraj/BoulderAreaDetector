@@ -74,35 +74,32 @@ def predict(img, img_path):
 
 
 # Image source selection
-option = st.radio('', ['Analyze an example image', 'Analyze custom image (from URL)'])
+option1_text = 'Use an example image'
+option2_text = 'Upload a custom image for analysis'
+option = st.radio('', [option1_text, option2_text])
 
-if option == 'Analyze an example image':
+if st.button('Analyze!'):
 
-    # Test image selection
-    working_dir = os.path.join(os.getcwd(), "test_images")
-    test_images = natsorted([f for f in os.listdir(working_dir) if os.path.isfile(os.path.join(working_dir, f))])
-    test_image = st.selectbox(
-        'Please select a test image:', test_images)
+    if option == option1_text:
+        # Test image selection
+        working_dir = os.path.join(os.getcwd(), "test_images")
+        test_images = natsorted([f for f in os.listdir(working_dir) if os.path.isfile(os.path.join(working_dir, f))])
+        test_image = st.selectbox('Please select a test image:', test_images)
 
-    # Read the image
-    file_path = os.path.join(working_dir, test_image)
-    img = skimage.io.imread(file_path)
-    img = resize(img, (256, 256))
+        if st.button('Analyze!'):
+            # Read the image
+            file_path = os.path.join(working_dir, test_image)
+            img = skimage.io.imread(file_path)
+            img = resize(img, (256, 256))
 
-    # Predict and display the image
-    predict(img, file_path)
-else:
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-        pil_img = PIL.Image.open(uploaded_file)
-        display_img = np.asarray(pil_img)  # Image to display
-
-        # Transform the image to feed into the model
-        img = pil_img.convert('RGB')
-        img = resize(img, (256, 256))
-        save_path = os.path.join(os.getcwd(), "test_picture.png")
-        skimage.io.imsave(save_path)
-        # Predict and display the image
-        predict(img, save_path)
+            # Predict and display the image
+            predict(img, file_path)
     else:
-        st.text("No picture received!!")
+        uploaded_file = st.file_uploader("Choose a file")
+        if uploaded_file is not None:
+            base_img = skimage.io.imread(uploaded_file)
+            img = resize(base_img, (256, 256))
+            save_path = os.path.join(os.getcwd(), "custom_picture.png")
+            skimage.io.imsave(save_path)
+            # Predict and display the image
+            predict(img, save_path)
