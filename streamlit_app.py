@@ -1,23 +1,12 @@
-import os
-import time
+import pathlib
 from io import BytesIO
 
-from PIL import Image
-import matplotlib.image as mpimg
-import numpy as np
-import requests
-import matplotlib.pyplot as plt
-from skimage import io
 import skimage
 import streamlit as st
-import torch
 from fastai.vision.all import *
 from natsort import natsorted
-from os.path import join
+from skimage import io
 from skimage.transform import resize
-import pathlib
-import platform
-import numpy as np
 
 if platform.system() == "Windows":
     # model originally saved on Linux, strange things happen
@@ -43,12 +32,15 @@ st.markdown("---")
 st.image(skimage.io.imread(fp_header), caption="Examples of Model Results")
 st.markdown("---")
 
+
 # Fxn
 @st.cache
 def load_image(image_file):
-    #loads uploaded images
-	img = Image.open(image_file)
-	return img
+    # loads uploaded images
+    img = Image.open(image_file)
+    return img
+
+
 # prediction function
 def predict(img, img_flex):
     # NOTE: it's called img_flex because it can either be an object itself, or a path to one
@@ -94,7 +86,8 @@ option = st.radio('Choose an option to continue:', [option1_text, option2_text])
 if option == option1_text:
     # Test image selection
     working_dir = os.path.join(os.getcwd(), "test_images")
-    test_images = natsorted([f for f in os.listdir(working_dir) if os.path.isfile(os.path.join(working_dir, f))])
+    test_images = natsorted(
+        [f for f in os.listdir(working_dir) if os.path.isfile(os.path.join(working_dir, f))])
     test_image = st.selectbox('Please select a test image:', test_images)
 
     if st.button('Analyze!'):

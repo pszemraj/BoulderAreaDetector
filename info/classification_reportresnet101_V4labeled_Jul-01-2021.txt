@@ -8,3 +8,10 @@
 weighted avg       0.95      0.95      0.95       901
 
 None
+
+
+C:/Users/peter/Dropbox/Life 2021/Personal Projects (Programming)/GeoNatFinder/shapes and polygons/switzerland.geojson
+
+geojsplit -n 10 switzerland.geojson
+
+geojsplit --geometry-count 900000 gemeinden-geojson.geojson

@@ -3,30 +3,19 @@ Run the model on local machine. Useful for debugging
 
 """
 
-import os
-import time
+import pathlib
+import platform
 from io import BytesIO
 
 # Importing Image class from PIL module
-from PIL import Image
-import matplotlib.image as mpimg
-import numpy as np
-import requests
-import matplotlib.pyplot as plt
-from skimage import io
-import skimage
-import torch
 from fastai.vision.all import *
-from natsort import natsorted
-from os.path import join
-import pathlib
-import platform
 
 if platform.system() == "Windows":
     # model originally saved on Linux, strange things happen
     print("on windows - adjusting PosixPath")
     temp = pathlib.PosixPath
     pathlib.PosixPath = pathlib.WindowsPath
+
 
 def predict(img, img_flex, print_model=True):
     # Display the test image
@@ -55,9 +44,11 @@ def predict(img, img_flex, print_model=True):
     prob_np = pred_prob.numpy()
     # Display the prediction
     if str(pred_class) == 'climb_area':
-        print("Submitted img is a climbing area, confidence level is {}".format(round(100*prob_np[0]),2))
+        print("Submitted img is a climbing area, confidence level is {}".format(round(100 * prob_np[0]), 2))
     else:
-        print("Area in submitted image not great for climbing. confidence level is {}".format(round(100*prob_np[0]),2))
+        print("Area in submitted image not great for climbing. confidence level is {}".format(
+            round(100 * prob_np[0]), 2))
+
 
 # main code. can update the below to load images from a file in a for loop to batch classify
 
