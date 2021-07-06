@@ -12,7 +12,7 @@ from fastai.vision.all import *
 
 if platform.system() == "Windows":
     # model originally saved on Linux, strange things happen
-    print("on windows - adjusting PosixPath")
+    print("on Windows OS - adjusting PosixPath")
     temp = pathlib.PosixPath
     pathlib.PosixPath = pathlib.WindowsPath
 

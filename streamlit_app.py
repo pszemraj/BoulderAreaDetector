@@ -22,16 +22,17 @@ st.title("NatureGeoDiscoverer MVP: Detect Bouldering Areas")
 st.markdown("by [Peter Szemraj](https://peterszemraj.ch/) | [GitHub](https://github.com/pszemraj)")
 with st.beta_container():
     st.header("Basic Instructions")
-    st.markdown("*This app assesses a satellite/arial image of land and decides whether it is suitable for "
-                "outdoor rock climbing.*")
-    st.markdown("- Choose an option to use the model to assess an image")
-    st.markdown("- If you are experiencing a shortage of satellite images to test, do not fear. This folder ["
+    st.markdown("*This app assesses a satellite or arial image of land chosen by the user (scroll down) and "
+                "decides whether it is suitable for outdoor bouldering.*")
+st.markdown("---")
+st.markdown("**Examples of Images in the *climb area* class**")
+st.image(skimage.io.imread(fp_header))
+st.markdown("---")
+with st.beta_container():
+    st.subheader("Sample Images")
+    st.markdown("If lacking satellite images, the dropbox folder ["
                 "here](https://www.dropbox.com/sh/0hz4lh9h8v30a8d/AACFwlIAvdnDdc6RvrcXVpnsa?dl=0) contains "
-                "images not used in the creation of the model")
-st.markdown("---")
-st.image(skimage.io.imread(fp_header), caption="Examples of Model Results")
-st.markdown("---")
-
+                "images that were not used for model training.")
 
 # Fxn
 @st.cache
