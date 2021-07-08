@@ -1,6 +1,6 @@
 import time
 import os
-import pathlib
+import pathlib, platform
 import pprint as pp
 import shutil
 from io import BytesIO
@@ -94,7 +94,7 @@ def predict(img, img_flex):
     st.image(img, caption="Chosen Image to Analyze", use_column_width=True)
 
     model_pred = load_mixnet_model()
-    st.write("loaded model")
+    st.write("loaded model----------------------------------")
 
     with st.spinner('thinking...'):
         time.sleep(3)
