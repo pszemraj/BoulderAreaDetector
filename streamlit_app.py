@@ -1,6 +1,5 @@
-import os
 import pathlib
-import shutil
+import time
 from io import BytesIO
 from os.path import join
 
@@ -11,7 +10,6 @@ from natsort import natsorted
 from skimage import io
 from skimage.transform import resize
 
-# key parameter(s
 # account for posixpath
 if platform.system() == "Windows":
     # model originally saved on Linux, strange things happen
@@ -59,31 +57,33 @@ def load_best_model():
         model_b_best = "https://www.dropbox.com/s/9c1ovx6dclp8uve/model-resnetv2_50x1_bigtransfer.pkl?dl=1"
         best_model_response = requests.get(model_b_best)
         best_model = load_learner(BytesIO(best_model_response.content), cpu=True)
-
+    st.write("loaded model")
     return best_model
 
 
 def load_mixnet_model():
-
     try:
-        path_to_model = r"model-mixnetXL-20epoch.pkl"
-        model = load_learner(path_to_model, cpu=True)
+        mixnet_name = r"model-mixnetXL-20epoch.pkl"
+        model = load_learner(join(os.getcwd(), mixnet_name), cpu=True)
     except:
         print("unable to load locally. downloading model file")
         model_backup = "https://www.dropbox.com/s/bwfar78vds9ou1r/model-mixnetXL-20epoch.pkl?dl=1"
         model_response = requests.get(model_backup)
         model = load_learner(BytesIO(model_response.content), cpu=True)
+    st.write("loaded model")
 
     return model
 
-# load the trained model
-with st.spinner('building contraptions...'):
-    use_best_model = False  # takes a bit longer to load because it needs to be unzipped
 
-    if use_best_model:
-        model = load_best_model()
-    else:
-        model = load_mixnet_model()
+# load the trained model
+
+use_best_model = False  # takes a bit longer to load because it needs to be unzipped
+
+if use_best_model:
+    model = load_best_model()
+else:
+    model = load_mixnet_model()
+
 
 # prediction function
 def predict(img, img_flex, model_pred):
