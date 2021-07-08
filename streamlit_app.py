@@ -64,10 +64,10 @@ def load_best_model():
 
 def load_mixnet_model():
     try:
-        mixnet_name = r"model-mixnetXL-20epoch.pkl"
+        mixnet_name = "model-mixnetXL-20epoch.pkl"
         model = load_learner(join(os.getcwd(), mixnet_name), cpu=True)
     except:
-        print("unable to load locally. downloading model file")
+        st.write("unable to load locally. downloading model file")
         model_backup = "https://www.dropbox.com/s/bwfar78vds9ou1r/model-mixnetXL-20epoch.pkl?dl=1"
         model_response = requests.get(model_backup)
         model = load_learner(BytesIO(model_response.content), cpu=True)
