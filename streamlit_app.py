@@ -5,6 +5,7 @@ import pprint as pp
 import shutil
 from io import BytesIO
 from os.path import basename, join
+import timm
 
 from natsort import natsorted
 import skimage

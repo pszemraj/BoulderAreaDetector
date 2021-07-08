@@ -11,6 +11,7 @@ from io import BytesIO
 from os.path import basename, join
 
 from fastai.vision.all import *
+import timm
 from natsort import natsorted
 
 
