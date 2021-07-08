@@ -77,17 +77,17 @@ def load_mixnet_model():
 
 # load the trained model
 
-use_best_model = False  # takes a bit longer to load because it needs to be unzipped
-st.write("got past setting")
-if use_best_model:
-    model = load_best_model()
-else:
-    model = load_mixnet_model()
-st.write("loaded a model")
+# use_best_model = False  # takes a bit longer to load because it needs to be unzipped
+# st.write("got past setting")
+# if use_best_model:
+#     model = load_best_model()
+# else:
+#     model = load_mixnet_model()
+# st.write("loaded a model")
 
 
 # prediction function
-def predict(img, img_flex, model_pred):
+def predict(img, img_flex):
     # NOTE: it's called img_flex because it can either be an object itself, or a path to one
     # Display the test image
     st.image(img, caption="Chosen Image to Analyze", use_column_width=True)
@@ -95,6 +95,7 @@ def predict(img, img_flex, model_pred):
     # Temporarily displays a message while executing
     with st.spinner('thinking...'):
         time.sleep(3)
+        model_pred = load_mixnet_model()
         # make prediction
         if not isinstance(img_flex, str):
             fancy_class = PILImage(img_flex)
@@ -135,7 +136,7 @@ if option == option1_text:
         img = resize(img, (256, 256))
 
         # Predict and display the image
-        predict(img, file_path, model)
+        predict(img, file_path)
 else:
     image_file = st.file_uploader("Upload Image", type=['png', 'jpeg', 'jpg'])
     if st.button('Analyze!'):
@@ -147,7 +148,7 @@ else:
             img = base_img.resize((256, 256))
             img = img.convert("RGB")
             # Predict and display the image
-            predict(img, img, model)
+            predict(img, img)
 st.markdown("---")
 st.subheader("How it Works:")
 st.markdown("**BoulderAreaDetector** uses Convolutional Neural Network (CNN) trained on a labeled dataset ("
