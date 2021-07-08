@@ -93,7 +93,8 @@ def predict(img, img_flex):
     # Display the test image
     st.image(img, caption="Chosen Image to Analyze", use_column_width=True)
 
-    model_pred = load_mixnet_model()
+    path_to_model = r"model-mixnetXL-20epoch.pkl"
+    model_pred = load_learner(path_to_model, cpu=True)
     st.write("loaded model----------------------------------")
 
     with st.spinner('thinking...'):
