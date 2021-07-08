@@ -22,7 +22,6 @@ if platform.system() == "Windows":
     temp = pathlib.PosixPath
     pathlib.PosixPath = pathlib.WindowsPath
 
-@st.cache
 def load_best_model():
     try:
         path_to_archive = r"model-resnetv2_50x1_bigtransfer.zip"
@@ -37,7 +36,6 @@ def load_best_model():
 
     return best_model
 
-@st.cache
 def load_mixnet_model():
     try:
         path_to_model = r"model-mixnetXL-20epoch.pkl"
