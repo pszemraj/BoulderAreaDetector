@@ -94,7 +94,15 @@ def predict(img, img_flex):
     st.image(img, caption="Chosen Image to Analyze", use_column_width=True)
 
     # Temporarily displays a message while executing
-    model_pred = load_mixnet_model()
+    try:
+        mixnet_name = "model-mixnetXL-20epoch.pkl"
+        model_pred = load_learner(mixnet_name, cpu=True)
+    except:
+        st.write("unable to load locally. downloading model file")
+        model_backup = "https://www.dropbox.com/s/bwfar78vds9ou1r/model-mixnetXL-20epoch.pkl?dl=1"
+        model_response = requests.get(model_backup)
+        model_pred = load_learner(BytesIO(model_response.content), cpu=True)
+    st.write("loaded model")
 
     with st.spinner('thinking...'):
         time.sleep(3)
