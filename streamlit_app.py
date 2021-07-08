@@ -113,8 +113,8 @@ def predict(img, img_flex, use_best_model=False):
             100 - round(100 * prob_np[0], 2)))
 
 # select model type
-want_adv = st.select_slider('Use Advanced model (slower)?', options=[False, True])
-st.markdown("you choose: ", want_adv)
+want_adv = st.checkbox('Use Advanced model (slower)?')
+if want_adv: st.markdown("*will analyze with advanced model*")
 # Image source selection
 option1_text = 'Use an example image'
 option2_text = 'Upload a custom image for analysis'
