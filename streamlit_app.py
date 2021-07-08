@@ -81,7 +81,7 @@ def load_image(image_file):
 
 
 # prediction function
-def predict(img, img_flex, use_best_model=False):
+def predict(img, img_flex, use_best_model=True):
     # NOTE: it's called img_flex because it can either be an object itself, or a path to one
     # Display the test image
     st.image(img, caption="Chosen Image to Analyze", use_column_width=True)
