@@ -11,9 +11,7 @@ from natsort import natsorted
 from skimage import io
 from skimage.transform import resize
 
-# key parameter(s)
-use_best_model = False  # takes a bit longer to load because it needs to be unzipped
-
+# key parameter(s
 # account for posixpath
 if platform.system() == "Windows":
     # model originally saved on Linux, strange things happen
@@ -66,6 +64,7 @@ def load_best_model():
 
 
 def load_mixnet_model():
+
     try:
         path_to_model = r"model-mixnetXL-20epoch.pkl"
         model = load_learner(path_to_model, cpu=True)
@@ -79,6 +78,8 @@ def load_mixnet_model():
 
 # load the trained model
 with st.spinner('building contraptions...'):
+    use_best_model = False  # takes a bit longer to load because it needs to be unzipped
+
     if use_best_model:
         model = load_best_model()
     else:
