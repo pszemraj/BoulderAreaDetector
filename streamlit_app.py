@@ -78,7 +78,7 @@ def load_mixnet_model():
 # load the trained model
 
 use_best_model = False  # takes a bit longer to load because it needs to be unzipped
-
+st.write("got past setting")
 if use_best_model:
     model = load_best_model()
 else:
