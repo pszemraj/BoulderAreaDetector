@@ -64,7 +64,7 @@ def load_best_model():
 
 def load_mixnet_model():
     try:
-        mixnet_name = r"model-mixnetXL-20epoch.pkl"
+        mixnet_name = "model-mixnetXL-20epoch.pkl"
         model = load_learner(mixnet_name, cpu=True)
     except:
         st.write("unable to load locally. downloading model file")
@@ -94,9 +94,10 @@ def predict(img, img_flex):
     st.image(img, caption="Chosen Image to Analyze", use_column_width=True)
 
     # Temporarily displays a message while executing
+    model_pred = load_mixnet_model()
+
     with st.spinner('thinking...'):
         time.sleep(3)
-        model_pred = load_mixnet_model()
         # make prediction
         if not isinstance(img_flex, str):
             fancy_class = PILImage(img_flex)
