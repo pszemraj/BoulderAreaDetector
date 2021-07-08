@@ -83,6 +83,7 @@ if use_best_model:
     model = load_best_model()
 else:
     model = load_mixnet_model()
+st.write("loaded a model")
 
 
 # prediction function
