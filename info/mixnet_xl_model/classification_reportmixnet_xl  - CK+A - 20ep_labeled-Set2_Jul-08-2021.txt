@@ -1,0 +1,9 @@
+              precision    recall  f1-score   support
+
+  climb_area       0.84      0.57      0.68       206
+       other       0.98      0.99      0.99      3854
+
+    accuracy                           0.97      4060
+   macro avg       0.91      0.78      0.83      4060
+weighted avg       0.97      0.97      0.97      4060
+

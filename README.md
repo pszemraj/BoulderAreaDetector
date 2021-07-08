@@ -1,18 +1,79 @@
 # BoulderAreaDetector
 
-Deploys a deep learning CNN classifying satellite imagery to [streamlit](https://share.streamlit.io/pszemraj/boulderareadetector) for user testing. The app MVP demo of GeoNatureDiscoverer (more info to be released.. TBD). The original idea for GeoNatureDiscoverer originated in the June 2021 CASSINI Hackathon, that repo is [here](https://github.com/JonathanLehner/cassini_2021_nature_discoverer).
+Deploys a deep learning CNN classifying satellite imagery to [streamlit](https://share.streamlit.io/pszemraj/boulderareadetector) for user testing. The app is an MVP demo of GeoNatureDiscoverer (more info to be released.. TBD). The original idea for GeoNatureDiscoverer originated in the June
+2021 CASSINI Hackathon, that repo is [here](https://github.com/JonathanLehner/cassini_2021_nature_discoverer).
 
 An example of model predictions on a holdout set:
 
 ![Predicted Class-climb_area Examples](https://user-images.githubusercontent.com/74869040/124186053-0b1ba500-dabc-11eb-892d-5330deea51a5.png)
 
-## Model Stats - ResNet101 CNN Classifier
+## Model Stats - CNN Classifier
 
-In short, fastai w/ resnet101 trained on labeled dataset with two classes.
+In short, the predictor under-the-hood is: fastai library using a convolutional neural network 
+trained on a labeled dataset of several thousand images with two classes (climb_area, other). 
+Source image data for training is mostly arial (possibly some satellite) sampled from Switzerland.
 
-A decent writeup on how to create, train, and save a fastai computer vision model is in [this Medium article](https://medium.com/analytics-vidhya/understanding-fastai-v2-training-with-a-computer-vision-example-part-1-the-resnet-model-dd9270450bb8). BoulderAreaDetector uses a decently sized labeled dataset (approx 3000 satellite images, each 256x256 in two classes), but has not had any significant level of hyperparameter optimization yet beyond fast.ai basics.
+**Note: the model deployed in the streamlit app has changed.** the original model used in this app
+was [ResNet101](https://arxiv.org/abs/1512.03385) and the trained model file is ~170 MB. As GitHub
+has limits / special rules around files greater than 100 mb in size, the model has been updated
+to [MixNet-XL](https://paperswithcode.com/method/mixconv), which exhibits similar performance but is
+smaller (in parameters, and therefore file size).
+> Also included in the repo is a zipped model file of a trained [Big Transfer model](https://paperswithcode.com/lib/timm/big-transfer) that is more accurate than either of the 
+> two. As this model is > 100 mb and streamlit unzipping+predicting performance is yet to be 
+> tested, it is not deployed to the app yet, but can be used locally.
 
-### Model itself
+A decent writeup on how to create, train, and save a fastai computer vision model is
+in [this Medium article](https://medium.com/analytics-vidhya/understanding-fastai-v2-training-with-a-computer-vision-example-part-1-the-resnet-model-dd9270450bb8). BoulderAreaDetector uses a decently
+sized labeled dataset (several thousand satellite images, each 256x256 in the two classes), but has
+not had any significant level of hyperparameter optimization yet beyond fast. ai basics.
+
+### MixNet: Model itself
+
+- [MixNet](https://github.com/rwightman/pytorch-image-models/blob/54a6cca27a9a3e092a07457f5d56709da56e3cf5/timm/models/efficientnet.py)
+  ` *Note: the above links to timm source code as the MixNet paper is already linked above*`
+- package: fast.ai (pytorch)
+- trained for 20 epochs
+- Loss:  FlattenedLoss of CrossEntropyLoss()
+- Optimizer: Adam
+- Total params: 11,940,824
+
+### MixNet:Confusion Matrix & Metrics
+
+![MixNet-XL Confusion Matrix](https://www.dropbox.com/s/yscr06wn03ikouo/mixnet_xl%20%20-%20CK%2BA%20-%2020epconfusion%20matrix.png?dl=1)
+
+```
+              precision    recall  f1-score   support
+
+  climb_area       0.84      0.57      0.68       206
+       other       0.98      0.99      0.99      3854
+
+    accuracy                           0.97      4060
+   macro avg       0.91      0.78      0.83      4060
+weighted avg       0.97      0.97      0.97      4060
+```
+
+**More details can be found in ```/info```**
+
+### Probability Distributions (on a holdout set)
+
+````#TODO````
+
+## Examples / Inference
+
+````#TODO````
+
+### Highest Loss Images (test set)
+
+The following images had the highest loss when evaluated as part of the test (not holdout) set
+during training:
+
+![highest loss MixNet imgs](https://www.dropbox.com/s/7nlo210srtq9xwg/mixnet_xl%20%20-%20CK%2BA%20-%2020ephighest_loss_images.png?dl=1)
+
+---
+
+### Details on Original ResNet101 Fine-Tuned Model
+
+This was the original model that was replaced as the file size was too large.
 
 - [ResNet101](https://pytorch.org/vision/stable/_modules/torchvision/models/resnet.html#resnet101)
 - package: fast.ai (pytorch)
@@ -20,10 +81,9 @@ A decent writeup on how to create, train, and save a fastai computer vision mode
 - Loss:  FlattenedLoss of CrossEntropyLoss()
 - Optimizer: Adam
 
-### Confusion Matrix & Metrics
-
 ![confusion matrix resnet101](https://user-images.githubusercontent.com/74869040/124186386-88dfb080-dabc-11eb-8699-91715f024458.png)
 More details:
+
 ```
               precision    recall  f1-score   support
 
@@ -35,24 +95,38 @@ More details:
 weighted avg       0.95      0.95      0.95       901
 ```
 
+---
 
-### Probability Distributions (on a holdout set)
+# Citations
 
-![Probability Distributions (on a holdout set)](https://user-images.githubusercontent.com/74869040/124186513-b3ca0480-dabc-11eb-89dc-60cd15bce8af.png)
+MixNet
 
-## Examples / Inference
-
-Will add more details at a later time, but for now please see the website and/or [this short compilation of images](https://www.dropbox.com/s/x7cyu3r1u6ohtzx/holdout%20class%20prediction%20examples%20-%20resnet101%20model%2002%20dataset4.pdf?dl=1) in PDF format.
-
-### Highest Loss Images (test set)
-
-These were on the test set (not the holdout):
-
-![images with the highest loss](https://user-images.githubusercontent.com/74869040/124186983-60a48180-dabd-11eb-8a6a-45a08034ffa3.png)
-## Citations
+```bazaar
+@misc{tan2019mixconv,
+      title={MixConv: Mixed Depthwise Convolutional Kernels}, 
+      author={Mingxing Tan and Quoc V. Le},
+      year={2019},
+      eprint={1907.09595},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
+Big Transfer
+```bazaar
+@misc{kolesnikov2020big,
+      title={Big Transfer (BiT): General Visual Representation Learning}, 
+      author={Alexander Kolesnikov and Lucas Beyer and Xiaohua Zhai and Joan Puigcerver and 
+      Jessica Yung and Sylvain Gelly and Neil Houlsby},
+      year={2020},
+      eprint={1912.11370},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
 
 ResNet
-```
+
+```bazaar
 @misc{he2015deep,
       title={Deep Residual Learning for Image Recognition}, 
       author={Kaiming He and Xiangyu Zhang and Shaoqing Ren and Jian Sun},

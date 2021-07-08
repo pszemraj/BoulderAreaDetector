@@ -1,0 +1,17 @@
+              precision    recall  f1-score   support
+
+  climb_area       0.79      0.76      0.77       101
+       other       0.97      0.97      0.97       800
+
+    accuracy                           0.95       901
+   macro avg       0.88      0.87      0.87       901
+weighted avg       0.95      0.95      0.95       901
+
+None
+
+
+C:/Users/peter/Dropbox/Life 2021/Personal Projects (Programming)/GeoNatFinder/shapes and polygons/switzerland.geojson
+
+geojsplit -n 10 switzerland.geojson
+
+geojsplit --geometry-count 900000 gemeinden-geojson.geojson

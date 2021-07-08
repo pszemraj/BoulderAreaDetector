@@ -1,0 +1,99 @@
+C:\Users\peter\AppData\Local\Programs\Python\Python39\python.exe C:/Users/peter/PycharmProjects/BoulderAreaDetector/local_test.py
+on Windows OS - adjusting PosixPath
+A list of files in the C:\Users\peter\PycharmProjects\BoulderAreaDetector\test_images directory are:
+
+['C:\\Users\\peter\\PycharmProjects\\BoulderAreaDetector\\test_images\\test_image_brione.png',
+ 'C:\\Users\\peter\\PycharmProjects\\BoulderAreaDetector\\test_images\\test_image_river.png',
+ 'C:\\Users\\peter\\PycharmProjects\\BoulderAreaDetector\\test_images\\test_img_boulder.png',
+ 'C:\\Users\\peter\\PycharmProjects\\BoulderAreaDetector\\test_images\\test_img_decoy.png',
+ 'C:\\Users\\peter\\PycharmProjects\\BoulderAreaDetector\\test_images\\test_img_elgottardo.png',
+ 'C:\\Users\\peter\\PycharmProjects\\BoulderAreaDetector\\test_images\\test_img_forest.png',
+ 'C:\\Users\\peter\\PycharmProjects\\BoulderAreaDetector\\test_images\\test_img_grass.png',
+ 'C:\\Users\\peter\\PycharmProjects\\BoulderAreaDetector\\test_images\\test_img_grasstrees.png',
+ 'C:\\Users\\peter\\PycharmProjects\\BoulderAreaDetector\\test_images\\test_img_house.png',
+ 'C:\\Users\\peter\\PycharmProjects\\BoulderAreaDetector\\test_images\\test_img_magic_wood.png']
+
+ and more. There are a total of 16 files
+
+
+
+Predicting images for test image test_image_brione.png
+Area in test image is good for climbing! 99.54% confident.
+
+
+
+Predicting images for test image test_image_river.png
+Area in test image NOT great for climbing: 99.98% confident.
+
+
+
+Predicting images for test image test_img_boulder.png
+Area in test image is good for climbing! 99.55% confident.
+
+
+
+Predicting images for test image test_img_decoy.png
+Area in test image NOT great for climbing: 99.59% confident.
+
+
+
+Predicting images for test image test_img_elgottardo.png
+Area in test image is good for climbing! 99.68% confident.
+
+
+
+Predicting images for test image test_img_forest.png
+Area in test image NOT great for climbing: 97.91% confident.
+
+
+
+Predicting images for test image test_img_grass.png
+Area in test image NOT great for climbing: 100.0% confident.
+
+
+
+Predicting images for test image test_img_grasstrees.png
+Area in test image NOT great for climbing: 100.0% confident.
+
+
+
+Predicting images for test image test_img_house.png
+Area in test image NOT great for climbing: 99.68% confident.
+
+
+
+Predicting images for test image test_img_magic_wood.png
+Area in test image is good for climbing! 90.05% confident.
+
+
+
+Predicting images for test image test_img_murgtal.png
+Area in test image is good for climbing! 99.31% confident.
+
+
+
+Predicting images for test image test_img_pool.png
+Area in test image NOT great for climbing: 98.49% confident.
+
+
+
+Predicting images for test image test_img_road.png
+Area in test image NOT great for climbing: 99.92% confident.
+
+
+
+Predicting images for test image test_img_sand.png
+Area in test image NOT great for climbing: 99.99% confident.
+
+
+
+Predicting images for test image test_img_smallrocks.png
+Area in test image NOT great for climbing: 99.9% confident.
+
+
+
+Predicting images for test image test_img_snow_mountain.png
+Area in test image NOT great for climbing: 99.97% confident.
+Removed the unpacked .pkl model file model-resnetv2_50x1_bigtransfer.pkl from C:\Users\peter\PycharmProjects\BoulderAreaDetector
+
+Process finished with exit code 0
