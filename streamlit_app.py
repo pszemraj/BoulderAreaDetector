@@ -28,7 +28,7 @@ def load_best_model():
         shutil.unpack_archive(path_to_archive)
         best_model = load_learner(join(os.getcwd(), best_model_name), cpu=True)
     except:
-        print("unable to load locally. downloading model file")
+        st.write("unable to load locally. downloading model file")
         model_b_best = "https://www.dropbox.com/s/9c1ovx6dclp8uve/model-resnetv2_50x1_bigtransfer.pkl?dl=1"
         best_model_response = requests.get(model_b_best)
         best_model = load_learner(BytesIO(best_model_response.content), cpu=True)
@@ -41,7 +41,7 @@ def load_mixnet_model():
         path_to_model = r"model-mixnetXL-20epoch.pkl"
         model = load_learner(path_to_model, cpu=True)
     except:
-        print("unable to load locally. downloading model file")
+        st.write("unable to load locally. downloading model file")
         model_backup = "https://www.dropbox.com/s/bwfar78vds9ou1r/model-mixnetXL-20epoch.pkl?dl=1"
         model_response = requests.get(model_backup)
         model = load_learner(BytesIO(model_response.content), cpu=True)
