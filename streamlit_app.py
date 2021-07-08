@@ -95,7 +95,7 @@ def predict(img, img_flex):
 
     # Temporarily displays a message while executing
     try:
-        mixnet_name = "model-mixnetXL-20epoch.pkl"
+        mixnet_name = r"model-mixnetXL-20epoch.pkl"
         model_pred = load_learner(mixnet_name, cpu=True)
     except:
         st.write("unable to load locally. downloading model file")
