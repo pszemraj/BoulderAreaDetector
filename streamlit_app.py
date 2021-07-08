@@ -22,7 +22,7 @@ if platform.system() == "Windows":
     temp = pathlib.PosixPath
     pathlib.PosixPath = pathlib.WindowsPath
 
-
+@st.cache
 def load_best_model():
     try:
         path_to_archive = r"model-resnetv2_50x1_bigtransfer.zip"
@@ -37,7 +37,7 @@ def load_best_model():
 
     return best_model
 
-
+@st.cache
 def load_mixnet_model():
     try:
         path_to_model = r"model-mixnetXL-20epoch.pkl"
@@ -81,7 +81,7 @@ def load_image(image_file):
 
 
 # prediction function
-def predict(img, img_flex, use_best_model=True):
+def predict(img, img_flex, use_best_model=False):
     # NOTE: it's called img_flex because it can either be an object itself, or a path to one
     # Display the test image
     st.image(img, caption="Chosen Image to Analyze", use_column_width=True)
@@ -114,7 +114,9 @@ def predict(img, img_flex, use_best_model=True):
         st.subheader("Area in test image not great for climbing :/ - {}% confident.".format(
             100 - round(100 * prob_np[0], 2)))
 
-
+# select model type
+want_adv = st.select_slider('Use Advanced model (slower)?', options=[False, True])
+st.markdown("you choose: ", want_adv)
 # Image source selection
 option1_text = 'Use an example image'
 option2_text = 'Upload a custom image for analysis'
@@ -135,7 +137,7 @@ if option == option1_text:
         img = resize(img, (256, 256))
 
         # Predict and display the image
-        predict(img, file_path)
+        predict(img, file_path, want_adv)
 else:
     image_file = st.file_uploader("Upload Image", type=['png', 'jpeg', 'jpg'])
     if st.button('Analyze!'):
@@ -147,7 +149,7 @@ else:
             img = base_img.resize((256, 256))
             img = img.convert("RGB")
             # Predict and display the image
-            predict(img, img)
+            predict(img, img, want_adv)
 st.markdown("---")
 st.subheader("How it Works:")
 st.markdown("**BoulderAreaDetector** uses Convolutional Neural Network (CNN) trained on a labeled dataset ("
