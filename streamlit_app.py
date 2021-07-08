@@ -1,9 +1,12 @@
-import pathlib
 import time
-from io import BytesIO
 import os
-from os.path import join
+import pathlib
+import pprint as pp
+import shutil
+from io import BytesIO
+from os.path import basename, join
 
+from natsort import natsorted
 import skimage
 import streamlit as st
 from fastai.vision.all import *
@@ -17,6 +20,33 @@ if platform.system() == "Windows":
     print("on Windows OS - adjusting PosixPath")
     temp = pathlib.PosixPath
     pathlib.PosixPath = pathlib.WindowsPath
+
+def load_best_model():
+    try:
+        path_to_archive = r"model-resnetv2_50x1_bigtransfer.zip"
+        best_model_name = "model-resnetv2_50x1_bigtransfer.pkl"
+        shutil.unpack_archive(path_to_archive)
+        best_model = load_learner(join(os.getcwd(), best_model_name), cpu=True)
+    except:
+        print("unable to load locally. downloading model file")
+        model_b_best = "https://www.dropbox.com/s/9c1ovx6dclp8uve/model-resnetv2_50x1_bigtransfer.pkl?dl=1"
+        best_model_response = requests.get(model_b_best)
+        best_model = load_learner(BytesIO(best_model_response.content), cpu=True)
+
+    return best_model
+
+
+def load_mixnet_model():
+    try:
+        path_to_model = r"model-mixnetXL-20epoch.pkl"
+        model = load_learner(path_to_model, cpu=True)
+    except:
+        print("unable to load locally. downloading model file")
+        model_backup = "https://www.dropbox.com/s/bwfar78vds9ou1r/model-mixnetXL-20epoch.pkl?dl=1"
+        model_response = requests.get(model_backup)
+        model = load_learner(BytesIO(model_response.content), cpu=True)
+
+    return model
 
 # App title and intro
 supplemental_dir = os.path.join(os.getcwd(), "info")
@@ -46,36 +76,6 @@ def load_image(image_file):
     img = Image.open(image_file)
     return img
 
-
-def load_best_model():
-    try:
-        path_to_archive = r"model-resnetv2_50x1_bigtransfer.zip"
-        best_model_name = "model-resnetv2_50x1_bigtransfer.pkl"
-        shutil.unpack_archive(path_to_archive)
-        best_model = load_learner(join(os.getcwd(), best_model_name), cpu=True)
-    except:
-        print("unable to load locally. downloading model file")
-        model_b_best = "https://www.dropbox.com/s/9c1ovx6dclp8uve/model-resnetv2_50x1_bigtransfer.pkl?dl=1"
-        best_model_response = requests.get(model_b_best)
-        best_model = load_learner(BytesIO(best_model_response.content), cpu=True)
-    st.write("loaded model")
-    return best_model
-
-
-def load_mixnet_model():
-    try:
-        mixnet_name = "model-mixnetXL-20epoch.pkl"
-        model = load_learner(mixnet_name, cpu=True)
-    except:
-        st.write("unable to load locally. downloading model file")
-        model_backup = "https://www.dropbox.com/s/bwfar78vds9ou1r/model-mixnetXL-20epoch.pkl?dl=1"
-        model_response = requests.get(model_backup)
-        model = load_learner(BytesIO(model_response.content), cpu=True)
-    st.write("loaded model")
-
-    return model
-
-
 # load the trained model
 
 # use_best_model = False  # takes a bit longer to load because it needs to be unzipped
@@ -93,15 +93,7 @@ def predict(img, img_flex):
     # Display the test image
     st.image(img, caption="Chosen Image to Analyze", use_column_width=True)
 
-    # Temporarily displays a message while executing
-    try:
-        # mixnet_name = r"model-mixnetXL-20epoch.pkl"
-        model_pred = load_learner("model-mixnetXL-20epoch.pkl", cpu=True)
-    except:
-        st.write("unable to load locally. downloading model file")
-        model_backup = "https://www.dropbox.com/s/bwfar78vds9ou1r/model-mixnetXL-20epoch.pkl?dl=1"
-        model_response = requests.get(model_backup)
-        model_pred = load_learner(BytesIO(model_response.content), cpu=True)
+    model_pred = load_mixnet_model()
     st.write("loaded model")
 
     with st.spinner('thinking...'):
