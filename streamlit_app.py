@@ -1,6 +1,7 @@
 import pathlib
 import time
 from io import BytesIO
+import os
 from os.path import join
 
 import skimage
