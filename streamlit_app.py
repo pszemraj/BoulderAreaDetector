@@ -22,6 +22,7 @@ if platform.system() == "Windows":
     temp = pathlib.PosixPath
     pathlib.PosixPath = pathlib.WindowsPath
 
+
 def load_best_model():
     try:
         path_to_archive = r"model-resnetv2_50x1_bigtransfer.zip"
@@ -48,6 +49,7 @@ def load_mixnet_model():
         model = load_learner(BytesIO(model_response.content), cpu=True)
 
     return model
+
 
 # App title and intro
 supplemental_dir = os.path.join(os.getcwd(), "info")
@@ -77,6 +79,7 @@ def load_image(image_file):
     img = Image.open(image_file)
     return img
 
+
 # load the trained model
 
 # use_best_model = False  # takes a bit longer to load because it needs to be unzipped
@@ -102,13 +105,17 @@ def predict(img, img_flex):
         time.sleep(3)
         # make prediction
         if not isinstance(img_flex, str):
+            st.write("loading img from object")
             fancy_class = PILImage(img_flex)
             model_pred.precompute = False
             pred_class, pred_items, pred_prob = model_pred.predict(fancy_class)
         else:
             # loads from a file so it's fine
+            st.write("loading img from file")
+
             pred_class, pred_items, pred_prob = model_pred.predict(img_flex)
         prob_np = pred_prob.numpy()
+
 
     # Display the prediction
     if str(pred_class) == 'climb_area':

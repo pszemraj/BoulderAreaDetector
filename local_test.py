@@ -14,8 +14,6 @@ from fastai.vision.all import *
 import timm
 from natsort import natsorted
 
-
-
 if platform.system() == "Windows":
     # model originally saved on Linux, strange things happen
     print("on Windows OS - adjusting PosixPath")
@@ -133,7 +131,6 @@ if __name__ == "__main__":
         this_img = os.path.basename(image_path)
         print("Predicting images for test image {}".format(this_img))
         predict(img, image_path, model, print_model=False, show_image=False)
-
 
     if os.path.exists(join(main_dir, best_model_name)):
         os.remove(join(main_dir, best_model_name))
