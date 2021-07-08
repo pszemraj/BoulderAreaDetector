@@ -80,38 +80,26 @@ def load_image(image_file):
     return img
 
 
-# load the trained model
-
-# use_best_model = False  # takes a bit longer to load because it needs to be unzipped
-# st.write("got past setting")
-# if use_best_model:
-#     model = load_best_model()
-# else:
-#     model = load_mixnet_model()
-# st.write("loaded a model")
-
-
 # prediction function
-def predict(img, img_flex):
+def predict(img, img_flex, use_best_model=False):
     # NOTE: it's called img_flex because it can either be an object itself, or a path to one
     # Display the test image
     st.image(img, caption="Chosen Image to Analyze", use_column_width=True)
 
-    path_to_model = r"model-mixnetXL-20epoch.pkl"
-    model_pred = load_learner(path_to_model, cpu=True)
-    st.write("loaded model----------------------------------")
+    if use_best_model:
+        model_pred = load_best_model()
+    else:
+        model_pred = load_mixnet_model()
 
     with st.spinner('thinking...'):
         time.sleep(3)
         # make prediction
         if not isinstance(img_flex, str):
-            st.write("loading img from object")
             fancy_class = PILImage(img_flex)
             model_pred.precompute = False
             pred_class, pred_items, pred_prob = model_pred.predict(fancy_class)
         else:
             # loads from a file so it's fine
-            st.write("loading img from file")
 
             pred_class, pred_items, pred_prob = model_pred.predict(img_flex)
         prob_np = pred_prob.numpy()
