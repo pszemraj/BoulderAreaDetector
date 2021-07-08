@@ -77,6 +77,12 @@ def load_mixnet_model():
 
     return model
 
+# load the trained model
+with st.spinner('building contraptions...'):
+    if use_best_model:
+        model = load_best_model()
+    else:
+        model = load_mixnet_model()
 
 # prediction function
 def predict(img, img_flex, model_pred):
@@ -106,13 +112,6 @@ def predict(img, img_flex, model_pred):
         st.subheader("Area in test image not great for climbing :/ - {}% confident.".format(
             100 - round(100 * prob_np[0], 2)))
 
-
-# load the trained model
-with st.spinner('building contraptions...'):
-    if use_best_model:
-        model = load_best_model()
-    else:
-        model = load_mixnet_model()
 
 # Image source selection
 option1_text = 'Use an example image'
