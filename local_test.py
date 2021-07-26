@@ -23,7 +23,7 @@ if platform.system() == "Windows":
 
 def load_best_model():
     try:
-        path_to_archive = r"model-resnetv2_50x1_bigtransfer.zip"
+        path_to_archive = r"model-resnetv2_50x1_bigtransfer_u.zip"
         best_model_name = "model-resnetv2_50x1_bigtransfer.pkl"
         shutil.unpack_archive(path_to_archive)
         best_model = load_learner(join(os.getcwd(), best_model_name), cpu=True)
@@ -38,7 +38,7 @@ def load_best_model():
 
 def load_mixnet_model():
     try:
-        path_to_model = r"model-mixnetXL-20epoch.pkl"
+        path_to_model = r"model-mixnetXL-20epoch_u.pil"
         model = load_learner(path_to_model, cpu=True)
     except:
         print("unable to load locally. downloading model file")
