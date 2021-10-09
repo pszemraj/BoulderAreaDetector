@@ -2,8 +2,8 @@
 
 Deploys a deep learning CNN classifying satellite imagery to [streamlit](https://share.streamlit.io/pszemraj/boulderareadetector) for user testing.
 
--   The app is an MVP demo of [BoulderSpot](boulderspot.io). The original idea for BoulderSpot originated in the June 2021 CASSINI Hackathon, that repo is [here](https://github.com/JonathanLehner/cassini_2021_nature_discoverer).
--   [BoulderSpot](boulderspot.io) uses a similar model to the one included here to classify whether aerial images are potential boulder areas or not. The class results are then used as part of a graph-like framework to analyze aerial imagery all across Switzerland. You can find more details on the website!
+-   The app is an MVP demo of [BoulderSpot](https://boulderspot.io/). The original idea for BoulderSpot originated in the June 2021 CASSINI Hackathon, that repo is [here](https://github.com/JonathanLehner/cassini_2021_nature_discoverer).
+-   [BoulderSpot](https://boulderspot.io/) uses a similar model to the one included here to classify whether aerial images are potential boulder areas or not. The class results are then used as part of a graph-like framework to analyze aerial imagery all across Switzerland. You can find more details on the website!
 
 An example of model predictions on a holdout set:
 
