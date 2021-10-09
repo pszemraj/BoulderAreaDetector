@@ -1,5 +1,7 @@
 """
-Run the models on local machine. Useful for debugging
+Run the models on local machine + included test image set.
+
+Useful for debugging.
 
 """
 
@@ -42,15 +44,16 @@ def load_mixnet_model():
         model = load_learner(path_to_model, cpu=True)
     except:
         print("unable to load locally. downloading model file")
-        model_backup = "https://www.dropbox.com/s/bwfar78vds9ou1r/model-mixnetXL-20epoch.pkl?dl=1"
+        model_backup = (
+            "https://www.dropbox.com/s/bwfar78vds9ou1r/model-mixnetXL-20epoch.pkl?dl=1"
+        )
         model_response = requests.get(model_backup)
         model = load_learner(BytesIO(model_response.content), cpu=True)
 
     return model
 
 
-def load_dir_files(directory, req_extension=".txt", return_type="list",
-                   verbose=False):
+def load_dir_files(directory, req_extension=".txt", return_type="list", verbose=False):
     appr_files = []
     # r=root, d=directories, f = files
     for r, d, f in os.walk(directory):
@@ -72,7 +75,8 @@ def load_dir_files(directory, req_extension=".txt", return_type="list",
     if return_type.lower() == "list":
         return appr_files
     else:
-        if verbose: print("returning dictionary")
+        if verbose:
+            print("returning dictionary")
 
         appr_file_dict = {}
         for this_file in appr_files:
@@ -81,9 +85,16 @@ def load_dir_files(directory, req_extension=".txt", return_type="list",
         return appr_file_dict
 
 
-def predict(img, img_flex, model_pred, print_model=True, show_image=True, ):
+def predict(
+    img,
+    img_flex,
+    model_pred,
+    print_model=True,
+    show_image=True,
+):
     # Display the test image
-    if show_image: img.show(title="Image to be predicted")
+    if show_image:
+        img.show(title="Image to be predicted")
     # Load model and make prediction
 
     if not isinstance(img_flex, str):
@@ -95,16 +106,23 @@ def predict(img, img_flex, model_pred, print_model=True, show_image=True, ):
         # standard case
         # loads from a file so it's fine
         pred_class, pred_items, pred_prob = model_pred.predict(img_flex)
-    if print_model: print(model_pred.model)
+    if print_model:
+        print(model_pred.model)
 
     prob_np = pred_prob.numpy()
     # Display the prediction
-    if str(pred_class) == 'climb_area':
+    if str(pred_class) == "climb_area":
         print(
-            "Area in test image is good for climbing! {}% confident.".format(round(100 * prob_np[0], 2)))
+            "Area in test image is good for climbing! {}% confident.".format(
+                round(100 * prob_np[0], 2)
+            )
+        )
     else:
-        print("Area in test image NOT great for climbing: {}% confident.".format(100 - round(100 * prob_np[0],
-                                                                                             2)))
+        print(
+            "Area in test image NOT great for climbing: {}% confident.".format(
+                100 - round(100 * prob_np[0], 2)
+            )
+        )
 
 
 if __name__ == "__main__":
@@ -134,4 +152,8 @@ if __name__ == "__main__":
 
     if os.path.exists(join(main_dir, best_model_name)):
         os.remove(join(main_dir, best_model_name))
-        print("Removed the unpacked .pkl model file {} from {}".format(best_model_name, main_dir))
+        print(
+            "Removed the unpacked .pkl model file {} from {}".format(
+                best_model_name, main_dir
+            )
+        )
