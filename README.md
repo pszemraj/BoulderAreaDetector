@@ -11,7 +11,7 @@ An example of model predictions on a holdout set:
 
 A picture of some of the boulders the (full) model found after an in-person data validation trip:
 
-![valhalla-example](https://www.dropbox.com/s/l1ydevfy7oj2o5f/Boulderspot-trip-03-Valhalla-06-min.png?dl=1)
+![Boulderspot-trip-03-Valhalla-06-min](https://user-images.githubusercontent.com/74869040/136666878-bfa590a2-9463-44c0-94b9-210d637ea22f.png)
 
 ## Model Stats - CNN Classifier
 
